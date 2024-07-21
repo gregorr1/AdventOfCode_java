@@ -18,20 +18,21 @@ public class Naloga1 {
             input = Files.readAllLines(Paths.get(path));
         } catch (IOException e) {
             System.out.println("This file does not exist.");
+            return;
         }
         int sum = 0;
 
         for(String line : input) {
             int coordinate = 0;
             for(int i = 0; i < line.length(); i++) {
-                if(Character.isDigit(line.charAt(i)))  {
+                if(Character.isDigit(line.charAt(i))) {
                     int firstCoordinate = Character.getNumericValue(line.charAt(i));
                     coordinate += firstCoordinate * 10;
                     break;
                 }
             }
             for(int i = line.length() - 1; i >= 0; i--) {
-                if(Character.isDigit(line.charAt(i)))  {
+                if(Character.isDigit(line.charAt(i))) {
                     int secondCoordinate = Character.getNumericValue(line.charAt(i));
                     coordinate += secondCoordinate;
                     break;
@@ -39,7 +40,7 @@ public class Naloga1 {
             }
             sum += coordinate;
         }
-        System.out.println("The answer is " + sum);
+        System.out.println("The sum of all of the calibration values is " + sum);
     }
 
     public static void naloga1_2() {
@@ -47,16 +48,16 @@ public class Naloga1 {
         Equipped with this new information, you now need to find the real first and last digit on each line.
         What is the sum of all of the calibration values? */
 
-        Map<String, Integer> map = new HashMap<>();
-        map.put("one", 1);
-        map.put("two", 2);
-        map.put("three", 3);
-        map.put("four", 4);
-        map.put("five", 5);
-        map.put("six", 6);
-        map.put("seven", 7);
-        map.put("eight", 8);
-        map.put("nine", 9);
+        Map<String, Integer> mapNums = new HashMap<>();
+        mapNums.put("one", 1);
+        mapNums.put("two", 2);
+        mapNums.put("three", 3);
+        mapNums.put("four", 4);
+        mapNums.put("five", 5);
+        mapNums.put("six", 6);
+        mapNums.put("seven", 7);
+        mapNums.put("eight", 8);
+        mapNums.put("nine", 9);
 
         String path = "input/input1.txt";
         List<String> input = Collections.emptyList();
@@ -64,21 +65,72 @@ public class Naloga1 {
             input = Files.readAllLines(Paths.get(path));
         } catch (IOException e) {
             System.out.println("This file does not exist.");
+            return;
         }
+        List<String> textNums = new ArrayList<>(mapNums.keySet());
         int sum = 0;
-
-        List<String> textNumbers = new ArrayList<>(map.keySet());
-
+        
         for(String line : input) {
             int coordinate = 0;
 
+            // Finding min index of a dictionary key
             int minIndex = -1;
             String minKey = "";
-
-            for(String num : textNumbers) {
-
+            for(String num : textNums) {
+                int index = line.indexOf(num);
+                if(index > -1) {
+                    if(minIndex == -1 || minIndex > index) {
+                        minIndex = index;
+                        minKey = num;
+                    }
+                }
             }
-        }
+            String minIndexReplaced = line;
+            if(mapNums.containsKey(minKey)) {
+                minIndexReplaced = line.replace(minKey, mapNums.get(minKey).toString());
+                System.out.println(minIndexReplaced);
+                minIndexReplaced = line.substring(0, minIndex) + mapNums.get(minKey) + line.substring(minIndex + minKey.length());
+                System.out.println(minIndexReplaced);
+            }
 
+            // Finding max index of a dictionary key
+            int maxIndex = -1;
+            String maxKey = "";
+            for(String num : textNums) {
+                int index = line.lastIndexOf(num);
+                if(index > -1) {
+                    if(maxIndex < index) {
+                        maxIndex = index;
+                        maxKey = num;
+                    }
+                }
+            }
+            String maxIndexReplaced = line;
+            if(mapNums.containsKey(maxKey)) {
+                maxIndexReplaced = line.replace(maxKey, mapNums.get(maxKey).toString());
+                System.out.println(minIndexReplaced);
+                maxIndexReplaced = line.substring(0, maxIndex) + mapNums.get(maxKey) + line.substring(maxIndex + maxKey.length());
+            }
+
+            // Calculating the first coordinate from the line with the first instance of a dictionary key replaced by its value
+            for(int i = 0; i < minIndexReplaced.length(); i++) {
+                if(Character.isDigit(minIndexReplaced.charAt(i))) {
+                    int firstCoordinate = Character.getNumericValue(minIndexReplaced.charAt(i));
+                    coordinate += firstCoordinate * 10;
+                    break;
+                }
+            }
+
+            // Calculating the second coordinate from the line with the last instance of a dictionary key replaced by its value
+            for(int i = maxIndexReplaced.length() - 1; i >= 0; i--) {
+                if(Character.isDigit(maxIndexReplaced.charAt(i))) {
+                    int secondCoordinate = Character.getNumericValue(maxIndexReplaced.charAt(i));
+                    coordinate += secondCoordinate;
+                    break;
+                }
+            }
+            sum += coordinate;
+        }
+        System.out.println("The sum of all of the calibration values is " + sum);
     }
 }
