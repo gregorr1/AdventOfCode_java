@@ -190,6 +190,97 @@ public class Naloga5 {
         System.out.println("This took " + stopWatch.getElapsedTimeSecs() + " sec");
     }
 
+    public static void naloga5_2_1() {
+        /* Everyone will starve if you only plant such a small number of seeds. Re-reading the almanac, it looks like the seeds: line actually describes ranges of seed numbers.
+        The values on the initial seeds: line come in pairs. Within each pair, the first value is the start of the range and the second value is the length of the range.
+        What is the lowest location number that corresponds to any of the initial seed numbers? */
+
+        // This is a faster version of the code from naloga5_2(), it takes around 60 ms to run (measured with Intel Core i5-8250U with 8 GB RAM). Although ranges are already defined in Apache Commons, I decided to define the class and functions from scratch for practice.
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        String path = "input/input5.txt";
+        List<String> input = Collections.emptyList();
+        try {
+            input = Files.readAllLines(Paths.get(path));
+        } catch (IOException e) {
+            System.out.println("This file does not exist.");
+            return;
+        }
+        input.removeIf(s -> s.isBlank()); // Remove empty strings
+        long lowestLocationNum = Long.MAX_VALUE;
+
+        // Instantiate all lists of Longs and MapElements
+        ArrayList<NumRange> rangesList = new ArrayList<>();
+        ArrayList<MapElement> seedToSoilMap = new ArrayList<>();
+        ArrayList<MapElement> soilToFertilizerMap = new ArrayList<>();
+        ArrayList<MapElement> fertilizerToWaterMap = new ArrayList<>();
+        ArrayList<MapElement> waterToLightMap = new ArrayList<>();
+        ArrayList<MapElement> lightToTemperatureMap = new ArrayList<>();
+        ArrayList<MapElement> temperatureToHumidityMap = new ArrayList<>();
+        ArrayList<MapElement> humidityToLocationMap = new ArrayList<>();
+
+        // Create a list of lists in correct order in order to iterate over all lists
+        ArrayList<ArrayList<MapElement>> almanachLists = new ArrayList<>();
+        almanachLists.add(seedToSoilMap);
+        almanachLists.add(soilToFertilizerMap);
+        almanachLists.add(fertilizerToWaterMap);
+        almanachLists.add(waterToLightMap);
+        almanachLists.add(lightToTemperatureMap);
+        almanachLists.add(temperatureToHumidityMap);
+        almanachLists.add(humidityToLocationMap);
+        
+        // Fill all almanach lists by either creating a new MapElement or switching to a new list, then sort them by source
+        int j = 0;
+        for(int i = 2; i < input.size(); i++) {
+            try {
+                String[] nums = input.get(i).split(" ");
+                almanachLists.get(j).add(new MapElement(Long.parseLong(nums[0]), Long.parseLong(nums[1]), Long.parseLong(nums[2])));
+            } catch (Exception e) {
+                j++;
+                continue;
+            }
+        }
+
+        // In order to avoid creating a new list of all MapElements where source is lower or equal than temp number, the lists are first sorted in this example
+        for(ArrayList<MapElement> list : almanachLists) {
+            Collections.sort(list, Comparator.comparing(MapElement::getSource));
+        }
+
+        // Fill the list of ranges
+        String[] seeds = input.get(0).split(" ");
+        long tempStart = -1;
+        long tempEnd = -1;
+        boolean start = true;
+        for(String s : seeds) {
+            try {
+                long seed = Long.parseLong(s);
+                if (start) {
+                    tempStart = seed;
+                } else {
+                    if (tempStart >= 0) {
+                        tempEnd = tempStart + seed - 1;
+                        rangesList.add(new NumRange(tempStart, tempEnd));
+                    }
+                }
+                start = !start;
+            } catch (Exception e) {
+                continue;
+            }
+        }
+
+        // Run checkRange() function on all ranges and find the lowest location number
+        for(NumRange range : rangesList) {
+            long returnedValue = checkRange(range, almanachLists);
+            if(returnedValue < lowestLocationNum) {
+                lowestLocationNum = returnedValue;
+            }
+        }
+        
+        System.out.println("The lowest location number is " + lowestLocationNum);
+        stopWatch.stop();
+        System.out.println("This took " + stopWatch.getElapsedTime() + " millisec");
+    }
+
     // Find the highest source among sources lower or equal than temp number. If source + range is greater than seed or currently mapped number, this number is in the map and is therefore mapped. If source + range is lower, this number is not in the map and remains unchanged.
     public static long checkSeed(long seed, ArrayList<ArrayList<MapElement>> almanachLists) {
         long tempNum = seed;
@@ -206,5 +297,77 @@ public class Naloga5 {
             }   
         }
         return tempNum;
+    }
+    
+    
+    public static long checkRange(NumRange inputRange, ArrayList<ArrayList<MapElement>> almanachLists) {
+        ArrayList<NumRange> listRanges = new ArrayList<>();
+        listRanges.add(inputRange);
+        ArrayList<NumRange> listNewRanges = new ArrayList<>();
+        for(ArrayList<MapElement> list : almanachLists) {
+            for(NumRange range : listRanges) {
+                NumRange tempRange = new NumRange(range.getRangeStart(), range.getRangeEnd());
+                
+                // A loop is initialized that creates new ranges based on sources and destination in all lists
+                while(true) {
+                    long newRangeStart;
+                    long newRangeEnd;
+                    long tempRangeStart = tempRange.getRangeStart();
+                    long tempRangeEnd = tempRange.getRangeEnd();
+                    int i = -1;
+                    while (i + 1 < list.size() && tempRangeStart >= list.get(i + 1).getSource()) {
+                        i++;
+                    }
+                    if(i >= 0) {
+                        MapElement maxElement = list.get(i);
+                        if(tempRangeStart < maxElement.getSource() + maxElement.getRange()) {
+                            newRangeStart = maxElement.getDestination() + (tempRangeStart - maxElement.getSource());
+                            if(tempRangeEnd < maxElement.getSource() + maxElement.getRange()) {
+                                // If both tempRangeStart and tempRangeEnd are lower than source and range of maxElement, a new mapped range is created and the loop ends as we've reached the end of tempRange
+                                newRangeEnd = maxElement.getDestination() + (tempRangeEnd - maxElement.getSource());
+                                listNewRanges.add(new NumRange(newRangeStart, newRangeEnd));
+                                break;
+                            } else {
+                                // If tempRangeEnd is not lower than source + range of maxElement, a new mapped range is created and tempRangeStart is moved up to be higher than newRangeEnd
+                                newRangeEnd = maxElement.getDestination() + maxElement.getRange() - 1;
+                                listNewRanges.add(new NumRange(newRangeStart, newRangeEnd));
+                                tempRange.setRangeStart(maxElement.getSource() + maxElement.getRange());
+                            }
+                        } else {
+                            newRangeStart = tempRangeStart;
+                            if(i < list.size() - 1 && list.get(i + 1).getSource() <= tempRangeEnd) {
+                                // If i is not the last index and the next element's source is lower than tempRangeEnd, a new range with unchanged values is created and tempRangeStart is moved up to be equal to next element's source
+                                newRangeEnd = list.get(i + 1).getSource() - 1;
+                                listNewRanges.add(new NumRange(newRangeStart, newRangeEnd));
+                                tempRange.setRangeStart(list.get(i + 1).getSource());
+                            } else {
+                                // If i is the last index or the next element's source is higher than tempRangeEnd, a new range with unchanged values is created and the loop ends as we've reached the end of tempRange
+                                newRangeEnd = tempRangeEnd;
+                                listNewRanges.add(new NumRange(newRangeStart, newRangeEnd));
+                                break;
+                            }
+                        }
+                    } else {
+                        // If i is lower than 0, the tempRangeStart is lower than the first element's source. If tempRangeEnd is lower as well, a new element with unchanged values is created and the loop ends as we've reached the end of tempRange; if tempRangeEnd is equal or higher, a new range with unchanged values is created and tempRangeStart is increased to be equal to the first element's source.
+                        newRangeStart = tempRangeStart;
+                        if(list.get(0).getSource() > tempRangeEnd) {
+                            newRangeEnd = tempRangeEnd;
+                            listNewRanges.add(new NumRange(newRangeStart, newRangeEnd));
+                            break;
+                        } else {
+                            newRangeEnd = list.get(0).getSource() - 1;
+                            listNewRanges.add(new NumRange(newRangeStart, newRangeEnd));
+                            tempRange.setRangeStart(list.get(0).getSource());
+                        }
+                    }                        
+                }
+            }
+            listRanges = new ArrayList<>(listNewRanges);
+            listNewRanges.clear();
+        }
+
+        // The final list of ranges are ranges of location numbers, which are then sorted and the lowest rangeStart is output as the lowest location number of this input range
+        Collections.sort(listRanges, Comparator.comparing(NumRange::getRangeStart));
+        return listRanges.get(0).getRangeStart();
     }
 }
