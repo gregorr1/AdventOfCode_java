@@ -27,18 +27,18 @@ public class Naloga5 {
         input.removeIf(s -> s.isBlank()); // Remove empty strings
 
         // Instantiate all lists of Longs and MapElements
-        ArrayList<Long> seedsList = new ArrayList<>();
-        ArrayList<Long> locationNumbers = new ArrayList<>();
-        ArrayList<MapElement> seedToSoilMap = new ArrayList<>();
-        ArrayList<MapElement> soilToFertilizerMap = new ArrayList<>();
-        ArrayList<MapElement> fertilizerToWaterMap = new ArrayList<>();
-        ArrayList<MapElement> waterToLightMap = new ArrayList<>();
-        ArrayList<MapElement> lightToTemperatureMap = new ArrayList<>();
-        ArrayList<MapElement> temperatureToHumidityMap = new ArrayList<>();
-        ArrayList<MapElement> humidityToLocationMap = new ArrayList<>();
+        List<Long> seedsList = new ArrayList<>();
+        List<Long> locationNumbers = new ArrayList<>();
+        List<MapElement> seedToSoilMap = new ArrayList<>();
+        List<MapElement> soilToFertilizerMap = new ArrayList<>();
+        List<MapElement> fertilizerToWaterMap = new ArrayList<>();
+        List<MapElement> waterToLightMap = new ArrayList<>();
+        List<MapElement> lightToTemperatureMap = new ArrayList<>();
+        List<MapElement> temperatureToHumidityMap = new ArrayList<>();
+        List<MapElement> humidityToLocationMap = new ArrayList<>();
 
         // Create a list of lists in correct order in order to iterate over all lists
-        ArrayList<ArrayList<MapElement>> almanachLists = new ArrayList<>();
+        List<List<MapElement>> almanachLists = new ArrayList<>();
         almanachLists.add(seedToSoilMap);
         almanachLists.add(soilToFertilizerMap);
         almanachLists.add(fertilizerToWaterMap);
@@ -72,10 +72,10 @@ public class Naloga5 {
 
         for(long seed : seedsList) {
             long tempNum = seed;
-            for(ArrayList<MapElement> list : almanachLists) {
+            for(List<MapElement> list : almanachLists) {
 
                 // For each seed and almanach list, create a list of all MapElements where source is lower or equal than seed or subsequently mapped number. If no such MapElement is found, the number is mapped to the same number and we continue with the next list/seed.
-                ArrayList<MapElement> lowerSources = new ArrayList<>();
+                List<MapElement> lowerSources = new ArrayList<>();
                 for(MapElement e : list) {
                     if(tempNum >= e.getSource()) {
                         lowerSources.add(e);
@@ -122,17 +122,17 @@ public class Naloga5 {
         long lowestLocationNum = Long.MAX_VALUE;
 
         // Instantiate all lists of Longs and MapElements
-        ArrayList<Long> seedsList = new ArrayList<>();
-        ArrayList<MapElement> seedToSoilMap = new ArrayList<>();
-        ArrayList<MapElement> soilToFertilizerMap = new ArrayList<>();
-        ArrayList<MapElement> fertilizerToWaterMap = new ArrayList<>();
-        ArrayList<MapElement> waterToLightMap = new ArrayList<>();
-        ArrayList<MapElement> lightToTemperatureMap = new ArrayList<>();
-        ArrayList<MapElement> temperatureToHumidityMap = new ArrayList<>();
-        ArrayList<MapElement> humidityToLocationMap = new ArrayList<>();
+        List<Long> seedsList = new ArrayList<>();
+        List<MapElement> seedToSoilMap = new ArrayList<>();
+        List<MapElement> soilToFertilizerMap = new ArrayList<>();
+        List<MapElement> fertilizerToWaterMap = new ArrayList<>();
+        List<MapElement> waterToLightMap = new ArrayList<>();
+        List<MapElement> lightToTemperatureMap = new ArrayList<>();
+        List<MapElement> temperatureToHumidityMap = new ArrayList<>();
+        List<MapElement> humidityToLocationMap = new ArrayList<>();
 
         // Create a list of lists in correct order in order to iterate over all lists
-        ArrayList<ArrayList<MapElement>> almanachLists = new ArrayList<>();
+        List<List<MapElement>> almanachLists = new ArrayList<>();
         almanachLists.add(seedToSoilMap);
         almanachLists.add(soilToFertilizerMap);
         almanachLists.add(fertilizerToWaterMap);
@@ -154,7 +154,7 @@ public class Naloga5 {
         }
 
         // In order to avoid creating a new list of all MapElements where source is lower or equal than temp number, the lists are first sorted in this example
-        for(ArrayList<MapElement> list : almanachLists) {
+        for(List<MapElement> list : almanachLists) {
             Collections.sort(list, Comparator.comparing(MapElement::getSource));
         }
 
@@ -210,17 +210,17 @@ public class Naloga5 {
         long lowestLocationNum = Long.MAX_VALUE;
 
         // Instantiate all lists of Longs and MapElements
-        ArrayList<NumRange> rangesList = new ArrayList<>();
-        ArrayList<MapElement> seedToSoilMap = new ArrayList<>();
-        ArrayList<MapElement> soilToFertilizerMap = new ArrayList<>();
-        ArrayList<MapElement> fertilizerToWaterMap = new ArrayList<>();
-        ArrayList<MapElement> waterToLightMap = new ArrayList<>();
-        ArrayList<MapElement> lightToTemperatureMap = new ArrayList<>();
-        ArrayList<MapElement> temperatureToHumidityMap = new ArrayList<>();
-        ArrayList<MapElement> humidityToLocationMap = new ArrayList<>();
+        List<NumRange> rangesList = new ArrayList<>();
+        List<MapElement> seedToSoilMap = new ArrayList<>();
+        List<MapElement> soilToFertilizerMap = new ArrayList<>();
+        List<MapElement> fertilizerToWaterMap = new ArrayList<>();
+        List<MapElement> waterToLightMap = new ArrayList<>();
+        List<MapElement> lightToTemperatureMap = new ArrayList<>();
+        List<MapElement> temperatureToHumidityMap = new ArrayList<>();
+        List<MapElement> humidityToLocationMap = new ArrayList<>();
 
         // Create a list of lists in correct order in order to iterate over all lists
-        ArrayList<ArrayList<MapElement>> almanachLists = new ArrayList<>();
+        List<List<MapElement>> almanachLists = new ArrayList<>();
         almanachLists.add(seedToSoilMap);
         almanachLists.add(soilToFertilizerMap);
         almanachLists.add(fertilizerToWaterMap);
@@ -242,7 +242,7 @@ public class Naloga5 {
         }
 
         // In order to avoid creating a new list of all MapElements where source is lower or equal than temp number, the lists are first sorted in this example
-        for(ArrayList<MapElement> list : almanachLists) {
+        for(List<MapElement> list : almanachLists) {
             Collections.sort(list, Comparator.comparing(MapElement::getSource));
         }
 
@@ -282,9 +282,9 @@ public class Naloga5 {
     }
 
     // Find the highest source among sources lower or equal than temp number. If source + range is greater than seed or currently mapped number, this number is in the map and is therefore mapped. If source + range is lower, this number is not in the map and remains unchanged.
-    public static long checkSeed(long seed, ArrayList<ArrayList<MapElement>> almanachLists) {
+    public static long checkSeed(long seed, List<List<MapElement>> almanachLists) {
         long tempNum = seed;
-        for(ArrayList<MapElement> list : almanachLists) {         
+        for(List<MapElement> list : almanachLists) {         
             int i = -1;    
             while (i + 1 < list.size() && tempNum >= list.get(i + 1).getSource()) {
                 i++;
@@ -300,11 +300,11 @@ public class Naloga5 {
     }
     
     
-    public static long checkRange(NumRange inputRange, ArrayList<ArrayList<MapElement>> almanachLists) {
-        ArrayList<NumRange> listRanges = new ArrayList<>();
+    public static long checkRange(NumRange inputRange, List<List<MapElement>> almanachLists) {
+        List<NumRange> listRanges = new ArrayList<>();
         listRanges.add(inputRange);
-        ArrayList<NumRange> listNewRanges = new ArrayList<>();
-        for(ArrayList<MapElement> list : almanachLists) {
+        List<NumRange> listNewRanges = new ArrayList<>();
+        for(List<MapElement> list : almanachLists) {
             for(NumRange range : listRanges) {
                 NumRange tempRange = new NumRange(range.getRangeStart(), range.getRangeEnd());
                 
