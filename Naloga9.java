@@ -18,10 +18,7 @@ public class Naloga9 {
     }
 
     public static void naloga9_1() {
-        /* You pull out your handy Oasis And Sand Instability Sensor and analyze your surroundings. The OASIS produces a report of many values and how they are changing over time (your puzzle input). Each line in the report contains the history of a single value.
-        To best protect the oasis, your environmental report should include a prediction of the next value in each history. To do this, start by making a new sequence from the difference at each step of your history. If that sequence is not all zeroes, repeat this process, using the sequence you just generated as the input sequence. Once all of the values in your latest sequence are zeroes, you can extrapolate what the next value of the original history should be.
-        To extrapolate, start by adding a new zero to the end of your list of zeroes. Then, work out the next value in each sequence from the bottom up by increasing the value to its left by the value below it.
-        Analyze your OASIS report and extrapolate the next value for each history. What is the sum of these extrapolated values? */
+        /* Instructions available here: https://adventofcode.com/2023/day/9 */
 
         List<String> input = getInput();
         long sum = 0;
@@ -42,8 +39,6 @@ public class Naloga9 {
     }
 
     public static void naloga9_2() {
-        /* For each history, repeat the process of finding differences until the sequence of differences is entirely zero. Then, rather than adding a zero to the end and filling in the next values of each previous sequence, you should instead add a zero to the beginning of your sequence of zeroes, then fill in new first values for each previous sequence.
-        Analyze your OASIS report again, this time extrapolating the previous value for each history. What is the sum of these extrapolated values? */
 
         List<String> input = getInput();
         long sum = 0;

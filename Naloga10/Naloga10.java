@@ -18,19 +18,7 @@ public class Naloga10 {
     }
 
     public static void naloga10_1() {
-        /* Scanning the area, you discover that the entire field you're standing on is densely packed with pipes. You make a quick sketch of all of the surface pipes you can see (your puzzle input).
-        The pipes are arranged in a two-dimensional grid of tiles:
-
-        | is a vertical pipe connecting north and south.
-        - is a horizontal pipe connecting east and west.
-        L is a 90-degree bend connecting north and east.
-        J is a 90-degree bend connecting north and west.
-        7 is a 90-degree bend connecting south and west.
-        F is a 90-degree bend connecting south and east.
-        . is ground; there is no pipe in this tile.
-        S is the starting position of the animal; there is a pipe on this tile, but your sketch doesn't show what shape the pipe has.
-
-        Find the single giant loop starting at S. How many steps along the loop does it take to get from the starting position to the point farthest from the starting position? */
+        /* Instructions available here: https://adventofcode.com/2023/day/10 */
 
         List<String> input = getInput();
         int startingRow = 0;
@@ -74,10 +62,7 @@ public class Naloga10 {
     }
 
     public static void naloga10_2() {
-        /* You quickly reach the farthest point of the loop, but the animal never emerges. Maybe its nest is within the area enclosed by the loop?
-        To determine whether it's even worth taking the time to search for such a nest, you should calculate how many tiles are contained within the loop.
-        How many tiles are enclosed by the loop? */
-
+       
         List<String> input = getInput();
         int startingRow = 0;
         int startingCol = 0;

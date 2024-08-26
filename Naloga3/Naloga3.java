@@ -8,8 +8,7 @@ import java.util.List;
 
 public class Naloga3 {
     public static void naloga3_1() {
-        /* The engine schematic (your puzzle input) consists of a visual representation of the engine. There are lots of numbers and symbols you don't really understand, but apparently any number adjacent to a symbol, even diagonally, is a "part number" and should be included in your sum. (Periods (.) do not count as a symbol.)
-        What is the sum of all of the part numbers in the engine schematic? */
+        /* Instructions available here: https://adventofcode.com/2023/day/3 */
 
         String path = "input/input3.txt";
         List<String> input = Collections.emptyList();
@@ -77,8 +76,6 @@ public class Naloga3 {
     }
 
     public static void naloga3_2() {
-        /* The engine schematic (your puzzle input) consists of a visual representation of the engine. There are lots of numbers and symbols you don't really understand, but apparently any number adjacent to a symbol, even diagonally, is a "part number" and should be included in your sum. (Periods (.) do not count as a symbol.)
-        What is the sum of all of the part numbers in the engine schematic? */
 
         String path = "input/input3.txt";
         List<String> input = Collections.emptyList();

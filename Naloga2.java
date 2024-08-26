@@ -6,8 +6,7 @@ import java.util.List;
 
 public class Naloga2 {
     public static void naloga2_1() {
-        /* You play several games and record the information from each game (your puzzle input). Each game is listed with its ID number (like the 11 in Game 11: ...) followed by a semicolon-separated list of subsets of cubes that were revealed from the bag (like 3 red, 5 green, 4 blue).
-        Determine which games would have been possible if the bag had been loaded with only 12 red cubes, 13 green cubes, and 14 blue cubes. What is the sum of the IDs of those games? */
+        /* Instructions available here: https://adventofcode.com/2023/day/2 */
 
         String path = "input/input2.txt";
         List<String> input = Collections.emptyList();
@@ -66,9 +65,6 @@ public class Naloga2 {
     }
 
     public static void naloga2_2() {
-        /* As you continue your walk, the Elf poses a second question: in each game you played, what is the fewest number of cubes of each color that could have been in the bag to make the game possible?
-        The power of a set of cubes is equal to the numbers of red, green, and blue cubes multiplied together.
-        For each game, find the minimum set of cubes that must have been present. What is the sum of the power of these sets? */
 
         String path = "input/input2.txt";
         List<String> input = Collections.emptyList();

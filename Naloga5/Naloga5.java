@@ -11,10 +11,7 @@ import tools.StopWatch;
 
 public class Naloga5 {
     public static void naloga5_1() {
-        /* The almanac starts by listing which seeds need to be planted. The rest of the almanac contains a list of maps which describe how to convert numbers from a source category into numbers in a destination category. That is, the section that starts with seed-to-soil map: describes how to convert a seed number (the source) to a soil number (the destination). This lets the gardener and his team know which soil to use with which seeds, which water to use with which fertilizer, and so on.
-        Rather than list every source number and its corresponding destination number one by one, the maps describe entire ranges of numbers that can be converted. Each line within a map contains three numbers: the destination range start, the source range start, and the range length.
-        Any source numbers that aren't mapped correspond to the same destination number.
-        What is the lowest location number that corresponds to any of the initial seed numbers? */
+        /* Instructions available here: https://adventofcode.com/2023/day/5 */
 
         String path = "input/input5.txt";
         List<String> input = Collections.emptyList();
@@ -103,10 +100,7 @@ public class Naloga5 {
     }
 
     public static void naloga5_2() {
-        /* Everyone will starve if you only plant such a small number of seeds. Re-reading the almanac, it looks like the seeds: line actually describes ranges of seed numbers.
-        The values on the initial seeds: line come in pairs. Within each pair, the first value is the start of the range and the second value is the length of the range.
-        What is the lowest location number that corresponds to any of the initial seed numbers? */
-
+        
         // Please note that while this code works and outputs the correct result, it takes 6 min 12 s to run (measured with Intel Core i5-8250U with 8 GB RAM). A new version with ranges is in the works :)
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
@@ -191,10 +185,7 @@ public class Naloga5 {
     }
 
     public static void naloga5_2_1() {
-        /* Everyone will starve if you only plant such a small number of seeds. Re-reading the almanac, it looks like the seeds: line actually describes ranges of seed numbers.
-        The values on the initial seeds: line come in pairs. Within each pair, the first value is the start of the range and the second value is the length of the range.
-        What is the lowest location number that corresponds to any of the initial seed numbers? */
-
+        
         // This is a faster version of the code from naloga5_2(), it takes around 60 ms to run (measured with Intel Core i5-8250U with 8 GB RAM). Although ranges are already defined in Apache Commons, I decided to define the class and functions from scratch for practice.
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();

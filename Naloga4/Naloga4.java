@@ -8,9 +8,7 @@ import java.util.List;
 
 public class Naloga4 {
     public static void naloga4_1() {
-        /* It looks like each card has two lists of numbers separated by a vertical bar (|): a list of winning numbers and then a list of numbers you have. You organize the information into a table (your puzzle input).
-        As far as the Elf has been able to figure out, you have to figure out which of the numbers you have appear in the list of winning numbers. The first match makes the card worth one point and each match after the first doubles the point value of that card.
-        How many points are they worth in total? */
+        /* Instructions available here: https://adventofcode.com/2023/day/4 */
 
         String path = "input/input4.txt";
         List<String> input = Collections.emptyList();
@@ -46,11 +44,7 @@ public class Naloga4 {
     }
 
     public static void naloga4_2() {
-        /* There's no such thing as "points". Instead, scratchcards only cause you to win more scratchcards equal to the number of winning numbers you have.
-        Specifically, you win copies of the scratchcards below the winning card equal to the number of matches.
-        Copies of scratchcards are scored like normal scratchcards and have the same card number as the card they copied. So, if you win a copy of card 10 and it has 5 matching numbers, it would then win a copy of the same cards that the original card 10 won: cards 11, 12, 13, 14, and 15. This process repeats until none of the copies cause you to win any more cards. (Cards will never make you copy a card past the end of the table.)
-        Process all of the original and copied scratchcards until no more scratchcards are won. Including the original set of scratchcards, how many total scratchcards do you end up with? */
-
+        
         String path = "input/input4.txt";
         List<String> input = Collections.emptyList();
         try {

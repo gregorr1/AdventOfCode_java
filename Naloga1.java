@@ -9,8 +9,7 @@ import java.util.Map;
 
 public class Naloga1 {
     public static void naloga1_1() {
-        /* The newly-improved calibration document consists of lines of text; each line originally contained a specific calibration value that the Elves now need to recover. On each line, the calibration value can be found by combining the first digit and the last digit (in that order) to form a single two-digit number.
-        Consider your entire calibration document. What is the sum of all of the calibration values? */
+        /* Instructions available here: https://adventofcode.com/2023/day/1 */
 
         String path = "input/input1.txt";
         List<String> input = Collections.emptyList();
@@ -44,10 +43,7 @@ public class Naloga1 {
     }
 
     public static void naloga1_2() {
-        /* Your calculation isn't quite right. It looks like some of the digits are actually spelled out with letters: one, two, three, four, five, six, seven, eight, and nine also count as valid "digits".
-        Equipped with this new information, you now need to find the real first and last digit on each line.
-        What is the sum of all of the calibration values? */
-
+       
         Map<String, Integer> mapNums = new HashMap<>();
         mapNums.put("one", 1);
         mapNums.put("two", 2);

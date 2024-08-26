@@ -22,9 +22,7 @@ public class Naloga8 {
     }
 
     public static void naloga8_1() {
-        /* One of the camel's pouches is labeled "maps" - sure enough, it's full of documents (your puzzle input) about how to navigate the desert. At least, you're pretty sure that's what they are; one of the documents contains a list of left/right instructions, and the rest of the documents seem to describe some kind of network of labeled nodes. This format defines each node of the network individually.
-        After examining the maps for a bit, two nodes stick out: AAA and ZZZ. You feel like AAA is where you are now, and you have to follow the left/right instructions until you reach ZZZ.
-        Starting at AAA, follow the left/right instructions. How many steps are required to reach ZZZ? */
+        /* Instructions available here: https://adventofcode.com/2023/day/8 */
 
         List<String> input = getInput();
         List<Node> nodes = new ArrayList<>();
@@ -67,8 +65,6 @@ public class Naloga8 {
     }
 
     public static void naloga8_2() {
-        /* After examining the maps a bit longer, your attention is drawn to a curious fact: the number of nodes with names ending in A is equal to the number ending in Z! If you were a ghost, you'd probably just start at every node that ends with A and follow all of the paths at the same time until they all simultaneously end up at nodes that end with Z.
-        Simultaneously start on every node that ends with A. How many steps does it take before you're only on nodes that end with Z? */
 
         List<String> input = getInput();
         List<Node> nodes = new ArrayList<>();
