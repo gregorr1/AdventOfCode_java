@@ -23,22 +23,6 @@ public class Naloga12 {
         List<String> input = getInput();
         int allMatches = 0;
         for (String line : input) {
-            // regex samo za pike in lojtre: compile("\\.+\\#+\\.+");
-            
-            
-            
-
-            
-            /*
-            if (numQuest > maxQuests) {
-                maxQuests = numQuest;
-                System.out.println("Line is " + substrings[0]);
-                System.out.println("Question marks is " + maxQuests);
-                System.out.println("Lngth is " + substrings[0].length());
-            }
-            */
-
-            // Prepare input - substrings[0] is a String we work on, substrings[1] creates a list of ints.
             String[] substrings = line.split(" ");
             List<Integer> arrangement = new ArrayList<>();
             int damagedSprings = 0;
@@ -65,12 +49,15 @@ public class Naloga12 {
                 }
             }
 
+            // Find how many hashes and dots should replace the question marks
             int permutationHashes = damagedSprings - existingHashes;
             int permutationDots = questionMarks - permutationHashes;
             List<String> list = new ArrayList<>();
             Pattern pattern = Pattern.compile(buildRegex(arrangement));
             int matches = 0;
-            generatePermutations(permutationHashes, permutationDots, list, "");
+            generatePermutations(permutationHashes, permutationDots, list, ""); // Used to fill the list
+            
+            // Replace question marks with hashes or dots, depending on their order in the current list element
             for (String string : list) {
                 int stringIndex = 0;
                 String replacedString = "";
@@ -86,53 +73,14 @@ public class Naloga12 {
                 boolean matchFound = matcher.find();
                 if (matchFound) {
                     matches++;
-                    // System.out.println("Found match: " + replacedString);
                 }
-                // System.out.println(replacedString);
             }
             allMatches += matches;
-            // regex za znake vmes:
-            // Pattern.compile("\\.+.*\\#+.*\\.+");
-            // 
-            // 
-            /*
-            
-            */
-
-
-
-
-
-            
-            
         }
-
-        /*
-        int numberOfQuestionmarks = maxQuests;
-        for (int i = 0; i < Math.pow(2, numberOfQuestionmarks); i++) {
-            String bin = String.format("%" + numberOfQuestionmarks + "s", Integer.toBinaryString(i)).replace(" ", "0");
-
-            String newString = "";
-            for (int j = 0; j < bin.length(); j++) {
-                if (bin.charAt(j) == '1') {
-                    newString += '#';
-                } else {
-                    newString += '.';
-                }
-            }
-            // System.out.println(newString);
-        }
-        */
-        System.out.println("All matches is " + allMatches);
-
-        
-
-        
-
-        
-
+        System.out.println("The sum of those counts is " + allMatches);
     }
 
+    // Build a regex for a string that starts and ends with any character and has at least one dot after every hash or set of hashes
     public static String buildRegex(List<Integer> arrangement) {
         String regex = "\\.*";
         for (int i = 0; i < arrangement.size(); i++) {
@@ -142,30 +90,20 @@ public class Naloga12 {
             }
         }
         regex += "\\.*";
-        // System.out.println(regex);
         return regex;
     }
 
+    // Print the permutation if both '#' and '.' counts are zero or add a hash/dot and recurse 
     public static void generatePermutations(int numHash, int numDot, List<String> permutations, String current) {
-        // Base case: if both `#` and `.` counts are zero, print the result
         if (numHash == 0 && numDot == 0) {
             permutations.add(current);
             return;
         }
-
-        // If there are hashes left to place, add a hash and recurse
         if (numHash > 0) {
             generatePermutations(numHash - 1, numDot, permutations, current + "#");
         }
-
-        // If there are dots left to place, add a dot and recurse
         if (numDot > 0) {
             generatePermutations(numHash, numDot - 1, permutations, current + ".");
         }
     }
-
-    public static boolean checkMatch(String permutation, String regex) {
-        return true;
-    }
-
 }
