@@ -5,7 +5,7 @@ public class Main {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         
-        Naloga14.naloga14_2();
+        Naloga15.naloga15_2();
         
         stopWatch.stop();
         System.out.println("This took " + stopWatch.getElapsedTime() + " ms.");
