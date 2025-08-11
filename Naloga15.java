@@ -17,6 +17,7 @@ public class Naloga15 {
         return input;
     }
 
+    /* Instructions available here: https://adventofcode.com/2023/day/15 */
     public static void naloga15_1() {
         String input = getInput().get(0);
         String[] substrings = input.split(",");

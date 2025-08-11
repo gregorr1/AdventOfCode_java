@@ -20,6 +20,7 @@ public class Naloga16 {
         return input;
     }
 
+    /* Instructions available here: https://adventofcode.com/2023/day/16 */
     public static void naloga16_1() {
         List<String> input = getInput();
         boolean[][] energized = new boolean[input.size()][input.get(0).length()];

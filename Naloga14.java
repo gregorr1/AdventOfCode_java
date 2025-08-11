@@ -19,6 +19,7 @@ public class Naloga14 {
         return input;
     }
 
+    /* Instructions available here: https://adventofcode.com/2023/day/14 */
     public static void naloga14_1() {
         List<String> input = getInput();
         List<char[]> charInput = new ArrayList<>();
